@@ -219,7 +219,7 @@ const openEditModal = (pitch) => {
           })}
           
           {/* batter picture */}
-          <img src="/batter.png" alt="Batter" style={{ 
+          <img src="/Batter.png" alt="Batter" style={{ 
             position: 'absolute',
             top: 0,
             right: 400,
