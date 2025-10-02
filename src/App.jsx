@@ -1,6 +1,6 @@
 import { useState, useEffect, use } from 'react'
 import './App.css'
-import PitchList from './pitchList.jsx'
+import PitchList from './PitchList.jsx'
 import PitchForm from './PitchForm.jsx'
 import ZoneHeatmap from './heatmap.jsx'
 
