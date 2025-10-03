@@ -236,7 +236,7 @@ const openEditModal = (pitch) => {
           <div style={{
             padding: '20px',
             Color: 'white',
-            backgroundColor: '#660000',
+            backgroundColor: '#000000',
             borderRadius: '8px',
             width: '300px',
             flexShrink: 0
