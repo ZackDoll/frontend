@@ -253,6 +253,7 @@ const openEditModal = (pitch) => {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '10px',
+                    Color: 'white',
                     marginBottom: '10px',
                     backgroundColor: rank === 0 ? '#ffd700' : 'black',
                     borderRadius: '5px',
