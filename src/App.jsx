@@ -225,7 +225,6 @@ const openEditModal = (pitch) => {
             right: 400,
             width: '100%',
             height: '100%',
-            filter: "invert(1)",
             transform: 'scaleX(-1)',
             zIndex: 1,
             pointerEvents: 'none'
