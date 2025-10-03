@@ -235,6 +235,7 @@ const openEditModal = (pitch) => {
         {result.predicted_pitch_type !== undefined && (
           <div style={{
             padding: '20px',
+            Color: 'white',
             backgroundColor: '#660000',
             borderRadius: '8px',
             width: '300px',
