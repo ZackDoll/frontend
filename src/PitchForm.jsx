@@ -82,6 +82,7 @@ function PitchForm({ updateCallback, onClose, sendData, existingPitch }) {
 
     return (
         <form onSubmit={handleSubmit}>
+            <div style = {{color: "white"}}>
             <h3>{existingPitch ? "Edit Pitch" : "Add Pitch"}</h3>
             <label>Inning: <input type="number" value={inning} onChange={e => setInning(e.target.value)} /></label><br />
             <label>Balls: <input type="number" value={balls} onChange={e => setBalls(e.target.value)} /></label><br />
@@ -95,6 +96,7 @@ function PitchForm({ updateCallback, onClose, sendData, existingPitch }) {
                     <option value="R">Right</option>
                 </select>
             </label><br />
+            </div>
             <button type="submit">{existingPitch ? "Update Pitch" : "Add Pitch"}</button>
         </form>
     )
