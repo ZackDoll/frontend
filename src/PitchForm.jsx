@@ -66,7 +66,6 @@ function PitchForm({ updateCallback, onClose, sendData, existingPitch }) {
                 return
             }
 
-            alert(existingPitch ? "Pitch updated successfully!" : "Pitch added successfully!")
             if (typeof updateCallback === 'function') updateCallback()
             if (typeof onClose === 'function') onClose()
             
