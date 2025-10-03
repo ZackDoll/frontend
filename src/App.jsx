@@ -241,7 +241,7 @@ const openEditModal = (pitch) => {
             width: '300px',
             flexShrink: 0
           }}>
-            <h3 style={{ marginBottom: '15px' color = 'white'}}>Top 3 Most Likely Pitches</h3>
+            <h3 style={{ marginBottom: '15px', color:'white'}}>Top 3 Most Likely Pitches</h3>
             {result.pitch_type_probabilities
               .map((prob, index) => ({ pitch: index, probability: prob }))
               .sort((a, b) => b.probability - a.probability)
