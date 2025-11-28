@@ -5,9 +5,22 @@ import PitchForm from './PitchForm.jsx'
 import ZoneHeatmap from './heatmap.jsx'
 
 function App() {
-  const [pitches, setPitches] = useState([])
+  const [pitch, setPitch] = useState({
+  inning: 1,
+  balls: 0,
+  strikes: 0,
+  outsWhenUp: 0,
+  fldScore: 0,
+  batScore: 0,
+  stand: "L"
+})
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState({
+  predicted_zone: null,
+  probabilities: Array(13).fill(0),  // 13 zones, all at 0%
+  predicted_pitch_type: null,
+  pitch_type_probabilities: Array(14).fill(0)  // 14 pitch types, all at 0%
+})
 
     const fetchPitches = async () => {
     const response = await fetch("https://baseball-backend-6eec.onrender.com/pitches")
@@ -41,7 +54,8 @@ const openEditModal = (pitch) => {
                12: "Knuckle-curve",
                13: "Forkball"
               }
-  const sendData = async (payload) => {
+ const sendData = async (payload) => {
+    setPitch(payload)
     try {
       const input = {
         features: [
@@ -105,8 +119,10 @@ const openEditModal = (pitch) => {
   }
   return (
   <>
-    <PitchList pitches={pitches} updateCallback={fetchPitches} />
-    <button style = {{marginLeft: 170}} onClick={openCreateModal}>Change Data</button>
+    
+    <button style={{marginLeft: 170}} onClick={openCreateModal}>
+  {result ? "Update Data" : "Enter Data"}
+</button>
     
     {result && (
       <div style={{ 
@@ -241,7 +257,7 @@ const openEditModal = (pitch) => {
             width: '300px',
             flexShrink: 0
           }}>
-            <h3 style={{ marginBottom: '15px' }}>Top 3 Most Likely Pitches</h3>
+            <h3 style={{ marginBottom: '15px', color: 'white'}}>Top 3 Most Likely Pitches</h3>
             {result.pitch_type_probabilities
               .map((prob, index) => ({ pitch: index, probability: prob }))
               .sort((a, b) => b.probability - a.probability)
@@ -254,6 +270,7 @@ const openEditModal = (pitch) => {
                     alignItems: 'center',
                     padding: '10px',
                     marginBottom: '10px',
+                    Color: 'white',
                     backgroundColor: rank === 0 ? '#ffd700' : 'black',
                     borderRadius: '5px',
                     fontWeight: rank === 0 ? 'bold' : 'normal'
@@ -269,13 +286,17 @@ const openEditModal = (pitch) => {
     )}
     
     {isModalOpen && (
-      <div className="modal" style={{zIndex: 100}}>
-        <div className="modal-content">
-          <span className="close" onClick={closeModal}>&times;</span>
-          <PitchForm updateCallback={fetchPitches} onClose={closeModal} sendData={sendData} existingPitch={currentPitch}/>
-        </div>
-      </div>
-    )}
+  <div className="modal" style={{zIndex: 100}}>
+    <div className="modal-content">
+      <span className="close" onClick={closeModal}>&times;</span>
+      <PitchForm 
+        onClose={closeModal} 
+        sendData={sendData} 
+        existingPitch={pitch}  
+      />
+    </div>
+  </div>
+)}
   </>
 );
   }

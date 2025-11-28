@@ -24,65 +24,26 @@ function PitchForm({ updateCallback, onClose, sendData, existingPitch }) {
     }, [existingPitch])
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+    e.preventDefault()
 
-        const payload = {
-            inning: Number(inning) || 0,
-            balls: Number(balls) || 0,
-            strikes: Number(strikes) || 0,
-            outsWhenUp: Number(outsWhenUp) || 0,
-            fldScore: Number(fldScore) || 0,
-            batScore: Number(batScore) || 0,
-            stand: stand || "L"
-        }
-
-        console.log("Submitting payload:", payload)
-        sendData(payload)
-
-        try {
-            let response;
-            
-            if (existingPitch) {
-                // Update existing pitch
-                response = await fetch(`https://baseball-backend-6eec.onrender.com/update_pitch/${existingPitch.id}`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
-            } else {
-                // Add new pitch
-                response = await fetch("https://baseball-backend-6eec.onrender.com/add_pitch", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
-            }
-
-            let data;
-            try { data = await response.json(); } catch { data = { message: "No JSON returned" }; }
-
-            if (!response.ok) {
-                alert(data.message || "Server error")
-                return
-            }
-
-            alert(existingPitch ? "Pitch updated successfully!" : "Pitch added successfully!")
-            if (typeof updateCallback === 'function') updateCallback()
-            if (typeof onClose === 'function') onClose()
-            
-            // Clear form only if adding new pitch
-            if (!existingPitch) {
-                setInning(""); setBalls(""); setStrikes(""); setOutsWhenUp(""); 
-                setFldScore(""); setBatScore(""); setStand("L")
-            }
-        } catch (err) {
-            console.error("Operation failed:", err)
-            alert("Network error")
-        }
+    const payload = {
+        inning: Number(inning) || 0,
+        balls: Number(balls) || 0,
+        strikes: Number(strikes) || 0,
+        outsWhenUp: Number(outsWhenUp) || 0,
+        fldScore: Number(fldScore) || 0,
+        batScore: Number(batScore) || 0,
+        stand: stand || "L"
     }
+
+    console.log("Submitting payload:", payload)
+    sendData(payload)
+    if (typeof onClose === 'function') onClose()
+}
 
     return (
         <form onSubmit={handleSubmit}>
+            <div style = {{color: "white"}}>
             <h3>{existingPitch ? "Edit Pitch" : "Add Pitch"}</h3>
             <label>Inning: <input type="number" value={inning} onChange={e => setInning(e.target.value)} /></label><br />
             <label>Balls: <input type="number" value={balls} onChange={e => setBalls(e.target.value)} /></label><br />
@@ -96,6 +57,7 @@ function PitchForm({ updateCallback, onClose, sendData, existingPitch }) {
                     <option value="R">Right</option>
                 </select>
             </label><br />
+            </div>
             <button type="submit">{existingPitch ? "Update Pitch" : "Add Pitch"}</button>
         </form>
     )
