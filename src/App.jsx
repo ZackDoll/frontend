@@ -123,29 +123,32 @@ const openEditModal = (pitch) => {
  {pitch && (
   <div style={{
     background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
-    padding: '30px',
+    padding: '20px 40px',
     borderRadius: '15px',
     marginBottom: '30px',
     color: 'white',
-    marginLeft: '170px',
-    maxWidth: '1200px',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
-    border: '1px solid rgba(255, 255, 255, 0.1)'
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    margin: '0 auto 30px auto',  // center it
+    maxWidth: '95%'  // responsive width
   }}>
     <h3 style={{
-      marginBottom: '25px',
-      fontSize: '24px',
+      marginBottom: '20px',
+      fontSize: '18px',
       fontWeight: '600',
       background: 'linear-gradient(90deg, #00ffaa, #00aaff)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text'
+      backgroundClip: 'text',
+      textAlign: 'center'
     }}>Current Game State</h3>
     
     <div style={{
-      display: 'grid', 
-      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', 
-      gap: '20px'
+      display: 'flex',  // changed from grid
+      justifyContent: 'space-around',  // evenly distribute
+      alignItems: 'center',
+      gap: '30px',
+      flexWrap: 'wrap'  // wrap on smaller screens
     }}>
       {[
         { label: 'Inning', value: pitch.inning, icon: '⚾' },
@@ -158,11 +161,13 @@ const openEditModal = (pitch) => {
       ].map((stat, index) => (
         <div key={index} style={{
           backgroundColor: 'rgba(0, 255, 170, 0.05)',
-          padding: '20px',
+          padding: '15px 25px',
           borderRadius: '10px',
           border: '1px solid rgba(0, 255, 170, 0.2)',
           transition: 'all 0.3s ease',
-          cursor: 'default'
+          cursor: 'default',
+          minWidth: '100px',  // consistent sizing
+          textAlign: 'center'
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = 'rgba(0, 255, 170, 0.1)';
@@ -175,24 +180,21 @@ const openEditModal = (pitch) => {
           e.currentTarget.style.transform = 'translateY(0)';
         }}>
           <div style={{
-            fontSize: '28px',
-            marginBottom: '10px',
-            textAlign: 'center'
+            fontSize: '24px',
+            marginBottom: '8px'
           }}>{stat.icon}</div>
           <div style={{
-            fontSize: '12px',
+            fontSize: '11px',
             color: '#888',
             textTransform: 'uppercase',
             letterSpacing: '1px',
-            marginBottom: '8px',
-            textAlign: 'center',
+            marginBottom: '5px',
             fontWeight: '500'
           }}>{stat.label}</div>
           <div style={{
-            fontSize: '24px',
+            fontSize: '20px',
             fontWeight: 'bold',
             color: '#00ffaa',
-            textAlign: 'center',
             fontFamily: 'monospace'
           }}>{stat.value}</div>
         </div>
@@ -201,39 +203,44 @@ const openEditModal = (pitch) => {
   </div>
 )}
 
-<button 
-  onClick={openCreateModal}
-  style={{
-    marginLeft: '170px',
-    background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
-    color: 'white',
-    border: '1px solid rgba(0, 255, 170, 0.3)',
-    padding: '20px 50px',
-    fontSize: '16px',
-    fontWeight: '600',
-    borderRadius: '12px',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    letterSpacing: '1px',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px'
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.borderColor = 'rgba(0, 255, 170, 0.6)';
-    e.currentTarget.style.transform = 'translateY(-3px)';
-    e.currentTarget.style.boxShadow = '0 6px 25px rgba(0, 255, 170, 0.3)';
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.borderColor = 'rgba(0, 255, 170, 0.3)';
-    e.currentTarget.style.transform = 'translateY(0)';
-    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-  }}
->
-  <span style={{fontSize: '20px'}}>⚾</span>
-  <span>{pitch.inning ? 'Update Game Data' : 'Enter Game Data'}</span>
-</button>
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',  // centers button
+  marginBottom: '30px'
+}}>
+  <button 
+    onClick={openCreateModal}
+    style={{
+      backgroundColor: 'transparent',
+      color: '#00ffaa',
+      border: '2px solid #00ffaa',
+      padding: '15px 40px',
+      fontSize: '16px',
+      fontWeight: '600',
+      borderRadius: '10px',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      textTransform: 'uppercase',
+      letterSpacing: '2px',
+      fontFamily: 'monospace',
+      boxShadow: '0 4px 15px rgba(0, 255, 170, 0.2)'
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.backgroundColor = '#00ffaa';
+      e.currentTarget.style.color = '#000';
+      e.currentTarget.style.transform = 'translateY(-2px)';
+      e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 255, 170, 0.4)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.backgroundColor = 'transparent';
+      e.currentTarget.style.color = '#00ffaa';
+      e.currentTarget.style.transform = 'translateY(0)';
+      e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 255, 170, 0.2)';
+    }}
+  >
+    {pitch.inning ? '⚙️ Modify Game State' : '▶️ Enter Game State'}
+  </button>
+</div>
     
     {result && (
       <div style={{ 
