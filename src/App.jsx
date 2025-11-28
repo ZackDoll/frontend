@@ -1,6 +1,6 @@
 import { useState, useEffect, use } from 'react'
 import './App.css'
-import PitchList from './pitchList.jsx'
+import PitchList from './PitchList.jsx'
 import PitchForm from './PitchForm.jsx'
 import ZoneHeatmap from './heatmap.jsx'
 
@@ -235,13 +235,12 @@ const openEditModal = (pitch) => {
           })}
           
           {/* batter picture */}
-          <img src="/batter.png" alt="Batter" style={{ 
+          <img src="/Batter.png" alt="Batter" style={{ 
             position: 'absolute',
             top: 0,
             right: 400,
             width: '100%',
             height: '100%',
-            filter: "invert(1)",
             transform: 'scaleX(-1)',
             zIndex: 1,
             pointerEvents: 'none'
@@ -252,12 +251,13 @@ const openEditModal = (pitch) => {
         {result.predicted_pitch_type !== undefined && (
           <div style={{
             padding: '20px',
+            Color: 'white',
             backgroundColor: '#000000',
             borderRadius: '8px',
             width: '300px',
             flexShrink: 0
           }}>
-            <h3 style={{ marginBottom: '15px', color: 'white'}}>Top 3 Most Likely Pitches</h3>
+            <h3 style={{ marginBottom: '15px', color:'white'}}>Top 3 Most Likely Pitches</h3>
             {result.pitch_type_probabilities
               .map((prob, index) => ({ pitch: index, probability: prob }))
               .sort((a, b) => b.probability - a.probability)
@@ -269,6 +269,7 @@ const openEditModal = (pitch) => {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '10px',
+                    color: 'white',
                     marginBottom: '10px',
                     Color: 'white',
                     backgroundColor: rank === 0 ? '#ffd700' : 'black',
