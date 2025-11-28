@@ -120,7 +120,30 @@ const openEditModal = (pitch) => {
   return (
   <>
     
-    <button style={{marginLeft: 170}} onClick={openCreateModal}>
+  {pitch && (
+  <div style={{
+    backgroundColor: '#1a1a1a',
+    padding: '20px',
+    borderRadius: '8px',
+    marginBottom: '20px',
+    color: 'white',
+    marginLeft: '170px',
+    width: 'fit-content'
+  }}>
+    <h3>Current Pitch Data:</h3>
+    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px'}}>
+      <div>Inning: {pitch.inning}</div>
+      <div>Balls: {pitch.balls}</div>
+      <div>Strikes: {pitch.strikes}</div>
+      <div>Outs: {pitch.outsWhenUp}</div>
+      <div>Bat Score: {pitch.batScore}</div>
+      <div>Field Score: {pitch.fldScore}</div>
+      <div>Stand: {pitch.stand}</div>
+    </div>
+  </div>
+)}
+
+<button style={{marginLeft: 170}} onClick={openCreateModal}>
   {result ? "Update Data" : "Enter Data"}
 </button>
     
