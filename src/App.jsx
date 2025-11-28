@@ -128,7 +128,7 @@ const openEditModal = (pitch) => {
     marginBottom: '30px',
     color: 'white',
     marginLeft: '170px',
-    maxWidth: '800px',
+    maxWidth: '1200px',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
     border: '1px solid rgba(255, 255, 255, 0.1)'
   }}>
@@ -201,8 +201,38 @@ const openEditModal = (pitch) => {
   </div>
 )}
 
-<button style={{marginLeft: 170}} onClick={openCreateModal}>
-  {result ? "Update Data" : "Enter Data"}
+<button 
+  onClick={openCreateModal}
+  style={{
+    marginLeft: '170px',
+    background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+    color: 'white',
+    border: '1px solid rgba(0, 255, 170, 0.3)',
+    padding: '20px 50px',
+    fontSize: '16px',
+    fontWeight: '600',
+    borderRadius: '12px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    letterSpacing: '1px',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px'
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.borderColor = 'rgba(0, 255, 170, 0.6)';
+    e.currentTarget.style.transform = 'translateY(-3px)';
+    e.currentTarget.style.boxShadow = '0 6px 25px rgba(0, 255, 170, 0.3)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.borderColor = 'rgba(0, 255, 170, 0.3)';
+    e.currentTarget.style.transform = 'translateY(0)';
+    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+  }}
+>
+  <span style={{fontSize: '20px'}}>⚾</span>
+  <span>{pitch.inning ? 'Update Game Data' : 'Enter Game Data'}</span>
 </button>
     
     {result && (
