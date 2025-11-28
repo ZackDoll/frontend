@@ -120,25 +120,83 @@ const openEditModal = (pitch) => {
   return (
   <>
     
-  {pitch && (
+ {pitch && (
   <div style={{
-    backgroundColor: '#1a1a1a',
-    padding: '20px',
-    borderRadius: '8px',
-    marginBottom: '20px',
+    background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+    padding: '30px',
+    borderRadius: '15px',
+    marginBottom: '30px',
     color: 'white',
     marginLeft: '170px',
-    width: 'fit-content'
+    maxWidth: '800px',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+    border: '1px solid rgba(255, 255, 255, 0.1)'
   }}>
-    <h3>Current Pitch Data:</h3>
-    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px'}}>
-      <div>Inning: {pitch.inning}</div>
-      <div>Balls: {pitch.balls}</div>
-      <div>Strikes: {pitch.strikes}</div>
-      <div>Outs: {pitch.outsWhenUp}</div>
-      <div>Bat Score: {pitch.batScore}</div>
-      <div>Field Score: {pitch.fldScore}</div>
-      <div>Stand: {pitch.stand}</div>
+    <h3 style={{
+      marginBottom: '25px',
+      fontSize: '24px',
+      fontWeight: '600',
+      background: 'linear-gradient(90deg, #00ffaa, #00aaff)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      backgroundClip: 'text'
+    }}>Current Game State</h3>
+    
+    <div style={{
+      display: 'grid', 
+      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', 
+      gap: '20px'
+    }}>
+      {[
+        { label: 'Inning', value: pitch.inning, icon: '⚾' },
+        { label: 'Balls', value: pitch.balls, icon: '🟢' },
+        { label: 'Strikes', value: pitch.strikes, icon: '🔴' },
+        { label: 'Outs', value: pitch.outsWhenUp, icon: '❌' },
+        { label: 'Bat Score', value: pitch.batScore, icon: '🏏' },
+        { label: 'Field Score', value: pitch.fldScore, icon: '🥎' },
+        { label: 'Stand', value: pitch.stand === 'L' ? 'Left' : 'Right', icon: '👤' }
+      ].map((stat, index) => (
+        <div key={index} style={{
+          backgroundColor: 'rgba(0, 255, 170, 0.05)',
+          padding: '20px',
+          borderRadius: '10px',
+          border: '1px solid rgba(0, 255, 170, 0.2)',
+          transition: 'all 0.3s ease',
+          cursor: 'default'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(0, 255, 170, 0.1)';
+          e.currentTarget.style.borderColor = 'rgba(0, 255, 170, 0.4)';
+          e.currentTarget.style.transform = 'translateY(-2px)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(0, 255, 170, 0.05)';
+          e.currentTarget.style.borderColor = 'rgba(0, 255, 170, 0.2)';
+          e.currentTarget.style.transform = 'translateY(0)';
+        }}>
+          <div style={{
+            fontSize: '28px',
+            marginBottom: '10px',
+            textAlign: 'center'
+          }}>{stat.icon}</div>
+          <div style={{
+            fontSize: '12px',
+            color: '#888',
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            marginBottom: '8px',
+            textAlign: 'center',
+            fontWeight: '500'
+          }}>{stat.label}</div>
+          <div style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            color: '#00ffaa',
+            textAlign: 'center',
+            fontFamily: 'monospace'
+          }}>{stat.value}</div>
+        </div>
+      ))}
     </div>
   </div>
 )}
